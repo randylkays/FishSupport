@@ -30,7 +30,7 @@ lineICTmp,=axt.plot([],[], color="green", label="IC Tmp")
 linep,=ax1.plot([],[], color="red", label="Pressure")
 lineph,=ax1.plot([],[], color="blue", label="PhotoLevel")
 lineb,=ax1.plot([],[], color="green", label="Battery")
-linebs,=ax1.plot([],[], color="brown", label="Batt Strain") # brown?
+linebe,=ax1.plot([],[], color="brown", label="Batt Strain") # brown?
 
 ax1.legend()
 axt.legend()
@@ -69,7 +69,7 @@ print(coolterms, listcoolterms[0])
 
 
 def getdata():
-    global data, t,thm,iT,ICTmp,ph,pv,bat,mem
+    global data, t,thm,iT,ICTmp,ph,pv,bat,bte,mem
     # Time,Internal Temp degF,IT_Cnt,Tmp IC degF,PhotoR,PhtCnt,Press,PRcnt,battVolt,battValue,battStrainVolt,battStrain,MemAvailable
     data = pd.read_csv(listcoolterms[0])
     # t = [str(time.strptime(timestr, "%Y-%m-%d %H:%M:%S")) for timestr in np.asarray(data['Time'])
@@ -78,7 +78,7 @@ def getdata():
     #    t = pd.Timestamp(timestr).to_pydatetime()
     t = [pd.Timestamp(timestr).to_pydatetime() for timestr in data['Time']]
     iT = np.asarray(data['Internal Temp degF'])
-    ICTmp = np.asarray(data['Tmp IC degF'])
+    ICTmp = np.asarray(data['Tmp IC'])
     ph = np.asarray(data['PhotoR'])
     pv = np.asarray(data['Press'])
     bat = np.asarray(data['battVolt'])
@@ -109,7 +109,7 @@ def animate(ii): # i):
     # -- Misc Parameters -- 
     linep.set_data(t,pv)
     lineph.set_data(t,ph)
-    lineb.set_data(t,bat))
+    lineb.set_data(t,bat)
     linebe.set_data(t,bte)
     
     # set misc limits
@@ -138,12 +138,12 @@ def animate(ii): # i):
     if ph.size<10:
         timehead = ["{:X}".format(i) for i in range(4)]
         # Time,Internal Temp degF,IT_Cnt,Tmp IC degF,PhotoR,PhtCnt,Press,PRcnt,battVolt,battValue,battStrainVolt,battStrain,MemAvailable
-        listname = ['Internal Temp degF','Tmp IC degF','Press','PhotoR','battVolt','battStrainVolt','MemAvailable']
+        listname = ['Internal Temp degF','Tmp IC','Press','PhotoR','battVolt','battStrainVolt','MemAvailable']
         # Old listname = ['Thermister','Internal Temp degF','Tmp IC degF','Press','PhotoR','Battery','MemAvailable']
         datadisplay = [["" for c in range(4)] for r in range(7)]
     else:
         timehead = data.loc[ph.size-4:ph.size-1]['Time'].str.split(' ').str[1].values
-        listname = ['Internal Temp degF','Tmp IC degF','Press','PhotoR','battVolt','battStrainVolt','MemAvailable']
+        listname = ['Internal Temp degF','Tmp IC','Press','PhotoR','battVolt','battStrainVolt','MemAvailable']
         # Old listname = ['Thermister','Internal Temp degF','Tmp IC degF','Press','PhotoR','Battery','MemAvailable']
         datax = [data.loc[ph.size-4:ph.size][item].values for item in listname]
         datadisplay = [[np.format_float_positional(i, precision=4) for i in datax[j]] for j in range(7)]
