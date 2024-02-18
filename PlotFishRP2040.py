@@ -41,7 +41,7 @@ tbl.set_title("Data")
 
 timehead = ["{:X}".format(i) for i in range(4)]
 #Time,Internal Temp degF,IT_Cnt,Tmp IC degF,PhotoR,PhtCnt,Press,PRcnt,battVolt,battValue,battStrainVolt,battStrain,MemAvailable
-listname = ['Internal Temp degF','Tmp IC degF','Press','PhotoR','1Battery Volt','Battery Strain','MemAvailable']
+listname = ['Internal Temp degF','Tmp IC degF','Press','PhotoR','Battery Volt','Battery Strain','MemAvailable']
 datadisplay = [["" for c in range(4)] for r in range(7)]  # 6? 
 
 tbl.set_axis_off() 

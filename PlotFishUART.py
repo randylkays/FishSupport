@@ -24,7 +24,7 @@ tbl = fig.add_subplot(gs[1,2])
 tbl.set_axis_off()
 
 lineTi,=axt.plot([],[], color="red", label="Int T")
-lineThm,=axt.plot([],[], color="blue", label="Thermister")
+#lineThm,=axt.plot([],[], color="blue", label="Thermister")
 lineICTmp,=axt.plot([],[], color="green", label="IC Tmp")
 
 linep,=ax1.plot([],[], color="red", label="Pressure")
@@ -49,17 +49,17 @@ fig.suptitle("Fish")
 ii=0
 
 timestamp=datetime.datetime.now()
-coolterms = "Fish%04d%02d%02d_%02d%02d*.csv"%(timestamp.year,timestamp.month,timestamp.day,timestamp.hour,timestamp.minute)
+coolterms = "fromFish%04d%02d%02d_%02d%02d*.csv"%(timestamp.year,timestamp.month,timestamp.day,timestamp.hour,timestamp.minute)
 listcoolterms=glob.glob(coolterms)
 print("Source File search:", coolterms) # listcoolterms[0])
 if listcoolterms==[]:
-    coolterms = "Fish%04d%02d%02d_%02d*.cvs"%(timestamp.year,timestamp.month,timestamp.day,timestamp.hour)
+    coolterms = "FromFish%04d%02d%02d_%02d*.cvs"%(timestamp.year,timestamp.month,timestamp.day,timestamp.hour)
     listcoolterms=glob.glob(coolterms)
     if listcoolterms==[]:
-        coolterms = "Fish%04d%02d%02d*.csv"%(timestamp.year,timestamp.month,timestamp.day)
+        coolterms = "FromFish%04d%02d%02d*.csv"%(timestamp.year,timestamp.month,timestamp.day)
         listcoolterms=glob.glob(coolterms)
         if listcoolterms==[]:
-            coolterms = "Fish%04d%02d*.csv"%(timestamp.year,timestamp.month)
+            coolterms = "FromFish%04d%02d*.csv"%(timestamp.year,timestamp.month)
             listcoolterms=glob.glob(coolterms)
             if listcoolterms==[]:
                 print("Data file not found in ", coolterms)
