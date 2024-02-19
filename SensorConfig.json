@@ -1,0 +1,25 @@
+{
+	"SensorCoef":[
+		{
+			"adc": "Pressure"
+			"a0": 0.0
+			"a1": 1.0
+		}		
+		{
+			"adc": "Salt"
+			"a0": 38257.06667
+			"a1": -353.6016
+		},
+		{
+			"adc": "InternalTempPico1"
+			"a0": 781.5549245
+			"a1": -0.04951918053
+		},
+		{
+			"adc": "InternalTempPicoW"
+			"a0": 767.0288768
+			"a1": -989.9849604
+		}
+	]
+	"Which": "Pressure"	
+}

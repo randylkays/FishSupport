@@ -114,14 +114,20 @@ if listcoolterms==[]:
     coolterms = "FromFish%04d%02d%02d_%02d*.cvs"%(timestamp.year,timestamp.month,timestamp.day,timestamp.hour)
     listcoolterms=glob.glob(coolterms)
     if listcoolterms==[]:
-        coolterms = "FromFish%04d%02d%02d*.csv"%(timestamp.year,timestamp.month,timestamp.day)
+        coolterms = "Fish%04d%02d%02d%02d*.cvs"%(timestamp.year,timestamp.month,timestamp.day,timestamp.hour)
         listcoolterms=glob.glob(coolterms)
         if listcoolterms==[]:
-            coolterms = "FromFish%04d%02d*.csv"%(timestamp.year,timestamp.month)
+            coolterms = "FromFish%04d%02d%02d*.csv"%(timestamp.year,timestamp.month,timestamp.day)
             listcoolterms=glob.glob(coolterms)
             if listcoolterms==[]:
-                print("Data file not found in ", coolterms)
-                exit()
+                coolterms = "Fish%04d%02d%02d*.csv"%(timestamp.year,timestamp.month,timestamp.day)
+                listcoolterms=glob.glob(coolterms)
+                if listcoolterms==[]:
+                    coolterms = "FromFish%04d%02d*.csv"%(timestamp.year,timestamp.month)
+                    listcoolterms=glob.glob(coolterms)
+                    if listcoolterms==[]:
+                        print("Data file not found in ", coolterms)
+                        exit()
 print(coolterms, listcoolterms[0])
 
 def SphericalPlot(x,y,z,which):
@@ -149,7 +155,7 @@ def SphericalPlot(x,y,z,which):
     themin = theta.min()
     current_min = themin if (themin < phimin) else phimin
     delta=(current_max-current_min)/10
-    print(current_min, current_max,delta) # romin,romax,phimin,phimax,themin,themax)
+    # print(current_min, current_max,delta) # romin,romax,phimin,phimax,themin,themax)
     if (which)=="a":
         if (ro.min()!=ro.max()):
             spa.set_xlim(tt[0],tt[-1])
@@ -365,7 +371,7 @@ def animate(ii): # i):
         listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','SG','SG Scaled', 'Accel - ro', 'Mag - ro']
         datadisplay = [["" for c in range(4)] for r in range(12)]
     else:
-        timehead = data.loc[xa.size-4:xa.size-1]['Time'].str.split(' ').str[1].values
+        timehead = data.loc[xa.size-4:xa.size-1]['Time'].values # str.split(' ').str[1].values
         listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','SG',]
         datax = [data.loc[xa.size-4:xa.size][item].values for item in listname]
         datadisplay = [[np.format_float_positional(i, precision=4) for i in datax[j]] for j in range(10)]
@@ -412,7 +418,7 @@ while True:
         # theta=90-np.arctan2(ya[-1],xa[-1])*180/np.pi
         # phi = 90-np.arctan2(za[-1],np.array(roac))*180/np.pi
         scale, bee, sg_scaled = animate(ii)
-        print("Main:", ii, "time:", timestamp,"RP Time", t[-1],"Size:",xa.size, "Battery:", bat[-1], "imuT", imuT[-1], "SG min, max & diff", sg.min(), sg.max(), sg.max()-sg.min(), sg_scaled.min(), sg_scaled.max(),-sg_scaled.min()+sg_scaled.max())
+        print("Main:", ii, "time:", timestamp,"RP Time", t[-1],"Size:",xa.size, "Battery:", bat[-1], "OutTmp:", OutTmp[-1], "Press:", pv[-1], "Photo:", ph[-1]) # , "SG min, max & diff", sg.min(), sg.max(), sg.max()-sg.min(), sg_scaled.min(), sg_scaled.max(),-sg_scaled.min()+sg_scaled.max())
         ii=ii+1
     # plt.legend()
     # plt.tight_layout()
