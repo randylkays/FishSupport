@@ -1,3 +1,7 @@
+# PlotFishUART 
+# Real time data plot of Fish Data (no IMU):
+# 'Thermister','Internal Temp degF','Tmp IC degF','Press','PhotoR','Battery','MemAvailable'
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -133,16 +137,15 @@ def animate(ii): # i):
     ax1.set_ylim((current_ymin-delta), (current_ymax+delta))
 
     datadisplay=[]
+    # Display differently for ten or less data points  
     if ph.size<10:
         timehead = ["{:X}".format(i) for i in range(4)]
         # Time,Thermister,Voltage,ThrCnt,Internal Temp degF,IT_Cnt,Tmp IC degF,PhotoR,PhtCnt,Press,PRcnt,Battery,BtCNt,MemAvailable
         listname = ['Thermister','Internal Temp degF','Tmp IC degF','Press','PhotoR','Battery','MemAvailable']
-        # old listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','SG','SG Scaled', 'Accel - ro', 'Mag - ro']
         datadisplay = [["" for c in range(4)] for r in range(7)]
     else:
         timehead = data.loc[ph.size-4:ph.size-1]['Time'].str.split(' ').str[1].values
         listname = ['Thermister','Internal Temp degF','Tmp IC degF','Press','PhotoR','Battery','MemAvailable']
-        # old listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','SG',]
         datax = [data.loc[ph.size-4:ph.size][item].values for item in listname]
         datadisplay = [[np.format_float_positional(i, precision=4) for i in datax[j]] for j in range(7)]
         # print("datadisplay[1]:",type(datadisplay[1][1]), datadisplay[1][1

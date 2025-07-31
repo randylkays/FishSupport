@@ -1,3 +1,7 @@
+# PlotFishData
+# Real time data plot of Fish Data (with IMU):
+# 'Pressure Voltage','Internal Temp','PhotoR','Battery','imuT','xa','ya','za','SG','SG scale', 'Accel - ro', 'Mag - ro'
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
