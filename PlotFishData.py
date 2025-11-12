@@ -64,7 +64,7 @@ lineOutTmp,=axt.plot([],[], color="green", label="Out T")
 linep,=ax1.plot([],[], color="red", label="Pressure")
 lineph,=ax1.plot([],[], color="blue", label="PhotoLevel")
 lineb,=ax1.plot([],[], color="green", label="Battery")
-linesg,=ax1.plot([],[], color="black", label="Strain Gauge")
+linesg,=ax1.plot([],[], color="black", label="IRPd Scaled")
 # sproap = spa.scatter([],[], cmap='hsv',alpha=0.75)
 # sprogp = spg.scatter([],[], cmap='hsv',alpha=0.75)
 # spromp = spm.scatter([],[], cmap='hsv',alpha=0.75)
@@ -93,7 +93,7 @@ tbl.set_title("Data")
 
 timehead = ["{:X}".format(i) for i in range(4)]
 # val2 = ["{:02X}".format(10 * i) for i in range(10)] 
-listname = ['Pressure Voltage','Internal Temp','PhotoR','Battery','imuT','xa','ya','za','SG','SG scale', 'Accel - ro', 'Mag - ro']
+listname = ['Pressure Voltage','Internal Temp','PhotoR','Battery','imuT','xa','ya','za','IRPd','IR scaled', 'Accel - ro', 'Mag - ro']
 datadisplay = [["" for c in range(4)] for r in range(12)]
 
 tbl.set_axis_off() 
@@ -208,7 +208,7 @@ def getdata():
     pv =np.asarray(data['Pressure Voltage'])
     iT =np.asarray(data['Internal Temp'])
     ph =np.asarray(data['PhotoR'])
-    sg =np.asarray(data['SG'])
+    sg =np.asarray(data['IRPd'])
     bat =np.asarray(data['Battery'])
     imuT=np.asarray(data['imuT'])
     OutTmp=np.asarray(data['OutTmp'])
@@ -372,15 +372,15 @@ def animate(ii): # i):
     datadisplay=[]
     if xa.size<10:
         timehead = ["{:X}".format(i) for i in range(4)]
-        listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','SG','SG Scaled', 'Accel - ro', 'Mag - ro']
+        listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','IRPd','IRPd - Scaled', 'Accel - ro', 'Mag - ro']
         datadisplay = [["" for c in range(4)] for r in range(12)]
     else:
         timehead = data.loc[xa.size-4:xa.size-1]['Time'].values # str.split(' ').str[1].values
-        listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','SG',]
+        listname = ['imuT','Internal Temp','OutTmp','PhotoR','Pressure Voltage','Battery','xa','ya','za','IRPd',]
         datax = [data.loc[xa.size-4:xa.size][item].values for item in listname]
         datadisplay = [[np.format_float_positional(i, precision=4) for i in datax[j]] for j in range(10)]
         # print("datadisplay[1]:",type(datadisplay[1][1]), datadisplay[1][1])
-        listname.append('SG Scaled')
+        listname.append('IRPd - Scaled')
         listname.append('Accel-ro')
         listname.append('Mag-ro')
         dummy=sg_scaled[sg_scaled.size-5:sg_scaled.size-1]
