@@ -189,7 +189,7 @@ def SphericalPlot(x,y,z,which):
 
 
 def getdata():
-    global data, t,xa,ya,za,xg,yg,zg,xm,ym,zm,pv,iT,ph,sg,bat,imuT,OutTmp
+    global data, t,xa,ya,za,xg,yg,zg,xm,ym,zm,pv,iT,ph,sg,irState,bat,imuT,OutTmp
     data = pd.read_csv(listcoolterms[0])
     #t = [str(time.strptime(timestr, "%Y-%m-%d %H:%M:%S")) for timestr innp.asarray(data['Time'])
     # for timestr in data['Time']:
@@ -209,6 +209,7 @@ def getdata():
     iT =np.asarray(data['Internal Temp'])
     ph =np.asarray(data['PhotoR'])
     sg =np.asarray(data['IRPd'])
+    irState =np.asarray(data['IRLEDState'])
     bat =np.asarray(data['Battery'])
     imuT=np.asarray(data['imuT'])
     OutTmp=np.asarray(data['OutTmp'])
